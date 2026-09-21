@@ -35,13 +35,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
-            <property name="orientation">horizontal</property>
-          </object>
+          <object class="GtkSeparator"></object>
         </child>
         <child>
           <object class="GtkBox" id="setter_box">
             <property name="orientation">vertical</property>
+            <property name="homogeneous">true</property>
             <property name="spacing">6</property>
             <style>
               <class name="linked" />
