@@ -1,8 +1,8 @@
 // Imports
 use crate::RnAppWindow;
 use gtk4::{
-    Button, CompositeTemplate, EmojiChooser, FontDialog, MenuButton, SpinButton, ToggleButton,
-    Widget, glib, glib::clone, pango, prelude::*, subclass::prelude::*,
+    glib, glib::clone, pango, prelude::*, subclass::prelude::*, Button, CompositeTemplate,
+    EmojiChooser, FontDialog, MenuButton, SpinButton, ToggleButton, Widget,
 };
 use rnote_engine::strokes::textstroke::{TextAlignment, TextAttribute, TextStyle};
 use std::cell::RefCell;

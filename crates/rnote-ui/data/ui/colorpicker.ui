@@ -12,10 +12,11 @@
     </style>
     <child>
       <object class="GtkBox">
-        <property name="orientation">horizontal</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkBox" id="active_colors_box">
+            <property name="orientation">vertical</property>
             <property name="spacing">3</property>
             <child>
               <object class="RnColorPad" id="stroke_color_pad">
@@ -34,12 +35,13 @@
           </object>
         </child>
         <child>
-          <object class="GtkSeparator"></object>
+          <object class="GtkSeparator">
+            <property name="orientation">horizontal</property>
+          </object>
         </child>
         <child>
           <object class="GtkBox" id="setter_box">
-            <property name="orientation">horizontal</property>
-            <property name="homogeneous">true</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <style>
               <class name="linked" />

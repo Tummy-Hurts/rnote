@@ -11,16 +11,16 @@ use crate::{RnAppWindow, RnIconPicker, RnUnitEntry};
 use adw::prelude::*;
 use gettextrs::{gettext, pgettext};
 use gtk4::{
-    Adjustment, Button, ColorDialogButton, CompositeTemplate, MenuButton, ScrolledWindow,
-    StringList, ToggleButton, Widget, gdk, glib, glib::clone, subclass::prelude::*,
+    gdk, glib, glib::clone, subclass::prelude::*, Adjustment, Button, ColorDialogButton,
+    CompositeTemplate, MenuButton, ScrolledWindow, StringList, ToggleButton, Widget,
 };
 use num_traits::ToPrimitive;
 use rnote_compose::penevent::ShortcutKey;
-use rnote_engine::WidgetFlags;
-use rnote_engine::document::Layout;
 use rnote_engine::document::background::PatternStyle;
 use rnote_engine::document::format::{self, Format, PredefinedFormat};
+use rnote_engine::document::Layout;
 use rnote_engine::ext::GdkRGBAExt;
+use rnote_engine::WidgetFlags;
 use std::cell::RefCell;
 
 mod imp {
@@ -569,7 +569,6 @@ impl RnSettingsPanel {
 
         let set_overlays_margins = |appwindow: &RnAppWindow, row_active: bool| {
             let (m1, m2) = if row_active { (18, 72) } else { (9, 63) };
-            appwindow.overlays().colorpicker().set_margin_top(m1);
             appwindow.overlays().penpicker().set_margin_bottom(m1);
             appwindow.overlays().sidebar_box().set_margin_start(m1);
             appwindow.overlays().sidebar_box().set_margin_end(m1);
