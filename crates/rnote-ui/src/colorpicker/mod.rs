@@ -9,11 +9,11 @@ pub(crate) use colorsetter::RnColorSetter;
 // Imports
 use crate::RnAppWindow;
 use gtk4::{
-    Button, ColorDialog, CompositeTemplate, Label, Widget, gdk, glib, glib::clone, prelude::*,
-    subclass::prelude::*,
+    gdk, glib, glib::clone, prelude::*, subclass::prelude::*, Button, ColorDialog,
+    CompositeTemplate, Label, Widget,
 };
 use once_cell::sync::Lazy;
-use rnote_compose::{Color, color};
+use rnote_compose::{color, Color};
 use rnote_engine::ext::GdkRGBAExt;
 use std::cell::RefCell;
 use tracing::debug;
@@ -531,7 +531,8 @@ impl RnColorPicker {
         let imp = self.imp();
         let compact_width_request = Self::COMPACT_WIDTH_REQUEST;
 
-        imp.stroke_color_pad.set_width_request(compact_width_request);
+        imp.stroke_color_pad
+            .set_width_request(compact_width_request);
         imp.fill_color_pad.set_width_request(compact_width_request);
         imp.setter_1.set_width_request(compact_width_request);
         imp.setter_2.set_width_request(compact_width_request);
@@ -542,7 +543,8 @@ impl RnColorPicker {
         imp.setter_7.set_width_request(compact_width_request);
         imp.setter_8.set_width_request(compact_width_request);
         imp.setter_9.set_width_request(compact_width_request);
-        imp.colordialog_button.set_width_request(compact_width_request);
+        imp.colordialog_button
+            .set_width_request(compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {
