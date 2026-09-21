@@ -3,10 +3,14 @@
 <interface>
   <template class="RnPensSideBar" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBinLayout" />
+      <object class="GtkBoxLayout">
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+      </object>
     </property>
     <child>
       <object class="GtkStack" id="sidebar_stack">
+        <property name="vexpand">true</property>
         <property name="transition_duration">300</property>
         <property name="transition_type">GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT</property>
 
@@ -103,6 +107,17 @@
                 <property name="margin_end">6</property>
               </object>
             </property>
+          </object>
+        </child>
+
+        <!-- Color Picker -->
+        <child>
+          <object class="RnColorPicker" id="colorpicker">
+            <property name="hexpand">true</property>
+            <property name="margin_top">6</property>
+            <property name="margin_bottom">6</property>
+            <property name="margin_start">6</property>
+            <property name="margin_end">6</property>
           </object>
         </child>
       </object>

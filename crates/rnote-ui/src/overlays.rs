@@ -30,8 +30,6 @@ mod imp {
         #[template_child]
         pub(crate) penpicker: TemplateChild<RnPenPicker>,
         #[template_child]
-        pub(crate) colorpicker: TemplateChild<RnColorPicker>,
-        #[template_child]
         pub(crate) tabview: TemplateChild<adw::TabView>,
         #[template_child]
         pub(crate) sidebar_box: TemplateChild<gtk4::Box>,
@@ -75,8 +73,6 @@ mod imp {
     impl RnOverlays {
         fn setup_toolbar_overlay(&self) {
             self.toolbar_overlay
-                .set_measure_overlay(&*self.colorpicker, true);
-            self.toolbar_overlay
                 .set_measure_overlay(&*self.penpicker, true);
             self.toolbar_overlay
                 .set_measure_overlay(&*self.sidebar_box, true);
@@ -109,7 +105,7 @@ impl RnOverlays {
     }
 
     pub(crate) fn colorpicker(&self) -> RnColorPicker {
-        self.imp().colorpicker.get()
+        self.penssidebar().colorpicker()
     }
 
     pub(crate) fn toast_overlay(&self) -> adw::ToastOverlay {
@@ -138,7 +134,6 @@ impl RnOverlays {
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
         let imp = self.imp();
-        imp.colorpicker.get().init(appwindow);
         imp.penssidebar.get().init(appwindow);
         imp.penpicker.get().init(appwindow);
         imp.penssidebar.get().brush_page().init(appwindow);
@@ -153,9 +148,9 @@ impl RnOverlays {
     }
 
     fn setup_colorpicker(&self, appwindow: &RnAppWindow) {
-        let imp = self.imp();
+        let colorpicker = self.penssidebar().colorpicker();
 
-        imp.colorpicker.connect_notify_local(
+        colorpicker.connect_notify_local(
             Some("stroke-color"),
             clone!(
                 #[weak]
@@ -192,7 +187,7 @@ impl RnOverlays {
             ),
         );
 
-        imp.colorpicker.connect_notify_local(
+        colorpicker.connect_notify_local(
             Some("fill-color"),
             clone!(
                 #[weak]

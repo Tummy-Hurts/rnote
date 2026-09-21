@@ -21,6 +21,7 @@ use gtk4::{
     CompositeTemplate, Stack, StackPage, Widget, glib, glib::clone, prelude::*,
     subclass::prelude::*,
 };
+use crate::{RnColorPicker};
 
 mod imp {
     use super::*;
@@ -54,6 +55,8 @@ mod imp {
         pub(crate) tools_stackpage: TemplateChild<StackPage>,
         #[template_child]
         pub(crate) tools_page: TemplateChild<RnToolsPage>,
+        #[template_child]
+        pub(crate) colorpicker: TemplateChild<RnColorPicker>,
     }
 
     #[glib::object_subclass]
@@ -131,7 +134,13 @@ impl RnPensSideBar {
         self.imp().tools_page.get()
     }
 
+    pub(crate) fn colorpicker(&self) -> RnColorPicker {
+        self.imp().colorpicker.get()
+    }
+
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
+        self.colorpicker().init(appwindow);
+
         self.imp()
             .sidebar_stack
             .get()
