@@ -427,6 +427,8 @@ pub(crate) static FILL_COLOR_DEFAULT: Lazy<Color> =
     Lazy::new(|| Color::from(color::GNOME_BLUES[1]));
 
 impl RnColorPicker {
+    const COMPACT_WIDTH_REQUEST: i32 = 17;
+
     pub(crate) fn new() -> Self {
         glib::Object::new()
     }
@@ -492,6 +494,8 @@ impl RnColorPicker {
     }
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
+        self.apply_compact_width();
+
         self.imp().colordialog_button.connect_clicked(
             clone!(#[weak(rename_to=colorpicker)] self, #[weak] appwindow , move |_| {
                 if colorpicker.imp().color_dialog.upgrade().is_some() {
@@ -521,6 +525,24 @@ impl RnColorPicker {
                 }
             }),
         );
+    }
+
+    fn apply_compact_width(&self) {
+        let imp = self.imp();
+        let compact_width_request = Self::COMPACT_WIDTH_REQUEST;
+
+        imp.stroke_color_pad.set_width_request(compact_width_request);
+        imp.fill_color_pad.set_width_request(compact_width_request);
+        imp.setter_1.set_width_request(compact_width_request);
+        imp.setter_2.set_width_request(compact_width_request);
+        imp.setter_3.set_width_request(compact_width_request);
+        imp.setter_4.set_width_request(compact_width_request);
+        imp.setter_5.set_width_request(compact_width_request);
+        imp.setter_6.set_width_request(compact_width_request);
+        imp.setter_7.set_width_request(compact_width_request);
+        imp.setter_8.set_width_request(compact_width_request);
+        imp.setter_9.set_width_request(compact_width_request);
+        imp.colordialog_button.set_width_request(compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {
