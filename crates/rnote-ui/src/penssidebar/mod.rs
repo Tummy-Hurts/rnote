@@ -9,19 +9,18 @@ mod typewriterpage;
 // Re-exports
 pub(crate) use brushpage::RnBrushPage;
 pub(crate) use eraserpage::RnEraserPage;
-use rnote_engine::pens::PenStyle;
 pub(crate) use selectorpage::RnSelectorPage;
 pub(crate) use shaperpage::RnShaperPage;
 pub(crate) use toolspage::RnToolsPage;
 pub(crate) use typewriterpage::RnTypewriterPage;
 
 // Imports
-use crate::RnAppWindow;
+use crate::{RnAppWindow, RnColorPicker};
 use gtk4::{
     CompositeTemplate, Stack, StackPage, Widget, glib, glib::clone, prelude::*,
     subclass::prelude::*,
 };
-use crate::{RnColorPicker};
+use rnote_engine::pens::PenStyle;
 
 mod imp {
     use super::*;
@@ -139,10 +138,10 @@ impl RnPensSideBar {
     }
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
-        self.colorpicker().init(appwindow);
+        let imp = self.imp();
+        imp.colorpicker.get().init(appwindow);
 
-        self.imp()
-            .sidebar_stack
+        imp.sidebar_stack
             .get()
             .connect_visible_child_name_notify(clone!(
                 #[weak]
