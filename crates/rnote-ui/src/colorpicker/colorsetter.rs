@@ -44,8 +44,8 @@ mod imp {
             obj.set_vexpand(false);
             obj.set_halign(Align::Fill);
             obj.set_valign(Align::Fill);
-            obj.set_width_request(34);
-            obj.set_height_request(34);
+            obj.set_width_request(10);
+            obj.set_height_request(10);
             obj.set_css_classes(&["colorsetter"]);
 
             self.update_appearance(super::RnColorSetter::COLOR_DEFAULT);

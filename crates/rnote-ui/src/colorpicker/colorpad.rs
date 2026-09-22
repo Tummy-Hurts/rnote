@@ -41,8 +41,8 @@ mod imp {
             obj.set_vexpand(false);
             obj.set_halign(Align::Fill);
             obj.set_valign(Align::Center);
-            obj.set_width_request(34);
-            obj.set_height_request(34);
+            obj.set_width_request(10);
+            obj.set_height_request(10);
             obj.set_css_classes(&["colorpad"]);
 
             self.update_appearance(super::RnColorPad::COLOR_DEFAULT);
