@@ -757,6 +757,7 @@ impl RnAppWindow {
             match pen_style {
                 PenStyle::Brush => {
                     self.overlays().penpicker().brush_toggle().set_active(true);
+                    self.overlays().colorpicker().brush_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()

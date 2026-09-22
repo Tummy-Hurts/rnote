@@ -10,13 +10,14 @@ pub(crate) use colorsetter::RnColorSetter;
 use crate::RnAppWindow;
 use gtk4::{
     gdk, glib, glib::clone, prelude::*, subclass::prelude::*, Button, ColorDialog,
-    CompositeTemplate, Label, Widget,
+    CompositeTemplate, Label, Widget, ToggleButton
 };
 use once_cell::sync::Lazy;
 use rnote_compose::{color, Color};
 use rnote_engine::ext::GdkRGBAExt;
 use std::cell::RefCell;
 use tracing::debug;
+use rnote_engine::pens::PenStyle;
 
 mod imp {
     use super::*;
@@ -62,6 +63,10 @@ mod imp {
         pub(crate) undo_button: TemplateChild<Button>,
         #[template_child]
         pub(crate) redo_button: TemplateChild<Button>,
+        #[template_child]
+        pub(crate) tools_toggle: TemplateChild<ToggleButton>,
+        #[template_child]
+        pub(crate) brush_toggle: TemplateChild<ToggleButton>,
     }
 
     impl Default for RnColorPicker {
@@ -88,6 +93,8 @@ mod imp {
                 setter_9: TemplateChild::default(),
                 colordialog_button: TemplateChild::default(),
                 active_color_label: TemplateChild::default(),
+                tools_toggle: TemplateChild::default(),
+                brush_toggle: TemplateChild::default(),
                 undo_button: TemplateChild::default(),
                 redo_button: TemplateChild::default(),
             }
@@ -507,7 +514,12 @@ impl RnColorPicker {
         self.imp().redo_button.get()
     }
 
+    pub(crate) fn brush_toggle(&self) -> ToggleButton {
+        self.imp().brush_toggle.get()
+    }
+
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
+        let imp = self.imp();
         self.apply_compact_width();
 
         self.imp().colordialog_button.connect_clicked(
@@ -539,6 +551,25 @@ impl RnColorPicker {
                 }
             }),
         );
+        imp.brush_toggle.connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |brush_toggle| {
+                if brush_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Brush);
+                }
+            }
+        ));
+
+        imp.tools_toggle.get().connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |tools_toggle| {
+                if tools_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Tools);
+                }
+            }
+        ));
     }
 
     fn apply_compact_width(&self) {
@@ -561,6 +592,8 @@ impl RnColorPicker {
         imp.colordialog_button.set_size_request(compact_width_request, compact_width_request);
         imp.undo_button.set_size_request(compact_width_request, compact_width_request);
         imp.redo_button.set_size_request(compact_width_request, compact_width_request);
+        imp.brush_toggle.set_size_request(compact_width_request, compact_width_request);
+        imp.tools_toggle.set_size_request(compact_width_request, compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {

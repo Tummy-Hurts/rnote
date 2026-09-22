@@ -123,6 +123,31 @@
             </style>
           </object>
         </child>
+        <child>
+          <object class="GtkToggleButton" id="brush_toggle">
+            <property name="icon_name">pen-brush-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Brush</property>
+            <property name="hexpand">true</property>
+            <style>
+              <class name="flat" />
+              /* <class name="temp" /> */
+              <class name="undo_redo_button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="tools_toggle">
+            <property name="icon_name">pen-tools-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Tools</property>
+            <property name="hexpand">true</property>
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              /* <class name="temp" /> */
+              <class name="undo_redo_button" />
+            </style>
+          </object>
+        </child>
       </object>
     </child>
     <child>
