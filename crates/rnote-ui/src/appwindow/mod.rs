@@ -320,10 +320,18 @@ impl RnAppWindow {
                 .penpicker()
                 .undo_button()
                 .set_sensitive(!hide_undo);
+            self.overlays()
+                .colorpicker()
+                .undo_button()
+                .set_sensitive(!hide_undo);
         }
         if let Some(hide_redo) = widget_flags.hide_redo {
             self.overlays()
                 .penpicker()
+                .redo_button()
+                .set_sensitive(!hide_redo);
+            self.overlays()
+                .colorpicker()
                 .redo_button()
                 .set_sensitive(!hide_redo);
         }
@@ -727,6 +735,14 @@ impl RnAppWindow {
                 .set_sensitive(can_undo);
             self.overlays()
                 .penpicker()
+                .redo_button()
+                .set_sensitive(can_redo);
+            self.overlays()
+                .colorpicker()
+                .undo_button()
+                .set_sensitive(can_undo);
+            self.overlays()
+                .colorpicker()
                 .redo_button()
                 .set_sensitive(can_redo);
             self.main_header()

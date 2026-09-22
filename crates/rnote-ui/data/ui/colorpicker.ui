@@ -87,9 +87,39 @@
         <child>
           <object class="GtkButton" id="colordialog_button">
             <property name="icon-name">preferences-color-symbolic</property>
+            <property name="margin-bottom">3</property>
             <style>
               <class name="flat" />
               <class name="colordialog_button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="orientation">horizontal</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="undo_button">
+            <property name="sensitive">false</property>
+            <property name="icon_name">edit-undo-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Undo</property>
+            <property name="action-name">win.undo</property>
+            <style>
+              <class name="flat" />
+              <class name="undo_redo_button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="redo_button">
+            <property name="sensitive">false</property>
+            <property name="icon_name">edit-redo-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Redo</property>
+            <property name="action-name">win.redo</property>
+            <style>
+              <class name="flat" />
+              <class name="undo_redo_button" />
             </style>
           </object>
         </child>

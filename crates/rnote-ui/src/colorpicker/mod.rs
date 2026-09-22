@@ -58,6 +58,10 @@ mod imp {
         pub(crate) colordialog_button: TemplateChild<Button>,
         #[template_child]
         pub(crate) active_color_label: TemplateChild<Label>,
+        #[template_child]
+        pub(crate) undo_button: TemplateChild<Button>,
+        #[template_child]
+        pub(crate) redo_button: TemplateChild<Button>,
     }
 
     impl Default for RnColorPicker {
@@ -84,6 +88,8 @@ mod imp {
                 setter_9: TemplateChild::default(),
                 colordialog_button: TemplateChild::default(),
                 active_color_label: TemplateChild::default(),
+                undo_button: TemplateChild::default(),
+                redo_button: TemplateChild::default(),
             }
         }
     }
@@ -493,6 +499,14 @@ impl RnColorPicker {
         self.imp().active_color_label.get()
     }
 
+    pub(crate) fn undo_button(&self) -> Button {
+        self.imp().undo_button.get()
+    }
+
+    pub(crate) fn redo_button(&self) -> Button {
+        self.imp().redo_button.get()
+    }
+
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
         self.apply_compact_width();
 
@@ -545,6 +559,8 @@ impl RnColorPicker {
         imp.setter_9.set_width_request(compact_width_request);
         // imp.colordialog_button.set_width_request(compact_width_request);
         imp.colordialog_button.set_size_request(compact_width_request, compact_width_request);
+        imp.undo_button.set_size_request(compact_width_request, compact_width_request);
+        imp.redo_button.set_size_request(compact_width_request, compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {
