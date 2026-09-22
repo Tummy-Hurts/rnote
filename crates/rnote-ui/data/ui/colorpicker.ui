@@ -89,6 +89,7 @@
             <property name="icon-name">preferences-color-symbolic</property>
             <style>
               <class name="flat" />
+              <class name="colordialog_button" />
             </style>
           </object>
         </child>

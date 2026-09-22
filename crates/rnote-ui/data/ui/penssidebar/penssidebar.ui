@@ -10,6 +10,8 @@
     </property>
     <child>
       <object class="RnColorPicker" id="colorpicker">
+        <property name="valign">center</property>
+        <property name="margin_start">6</property>
       </object>
     </child>
     <child>

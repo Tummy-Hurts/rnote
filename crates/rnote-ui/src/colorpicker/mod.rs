@@ -427,7 +427,7 @@ pub(crate) static FILL_COLOR_DEFAULT: Lazy<Color> =
     Lazy::new(|| Color::from(color::GNOME_BLUES[1]));
 
 impl RnColorPicker {
-    const COMPACT_WIDTH_REQUEST: i32 = 10;
+    const COMPACT_WIDTH_REQUEST: i32 = 24;
 
     pub(crate) fn new() -> Self {
         glib::Object::new()
@@ -543,7 +543,8 @@ impl RnColorPicker {
         imp.setter_7.set_width_request(compact_width_request);
         imp.setter_8.set_width_request(compact_width_request);
         imp.setter_9.set_width_request(compact_width_request);
-        imp.colordialog_button.set_width_request(compact_width_request);
+        // imp.colordialog_button.set_width_request(compact_width_request);
+        imp.colordialog_button.set_size_request(compact_width_request, compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {
