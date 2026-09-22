@@ -9,7 +9,7 @@
 .sidebar_action_button > box > image,
 .sidebar_action_button > button > box > image
 {
-    -gtk-icon-size: 17px;
+    -gtk-icon-size: 24px;
 }
 
 .cursor_picker_button {
@@ -23,7 +23,7 @@
 .cursor_picker_button > box image,
 .cursor_picker_button > button > box > image
 {
-    -gtk-icon-size: 17px;
+    -gtk-icon-size: 24px;
 }
 
 .main_title.unsaved_changes .title {
@@ -49,8 +49,8 @@
 }
 
 .colorpad {
-    min-width: 10px;
-    min-height: 10px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
     background-blend-mode: screen;
@@ -59,7 +59,7 @@
         linear-gradient(45deg, #0f0f0f55 25%, transparent 25%, transparent 75%, #0f0f0f55 75%, #0f0f0f55);
     background-color: @colorpad_color;
     color: @colorpad_fg_color;
-    background-size: 10px 10px;
+    background-size: 18px 18px;
     background-position: 0px 0px, 9px 9px;
     border: 1px solid @borders;
     border-radius: 4px;
@@ -83,8 +83,8 @@
 }
 
 .colorsetter {
-    min-width: 10px;
-    min-height: 10px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
     background-blend-mode: screen;
@@ -93,7 +93,7 @@
         linear-gradient(45deg, #0f0f0f55 25%, transparent 25%, transparent 75%, #0f0f0f55 75%, #0f0f0f55);
     background-color: @colorsetter_color;
     color: @colorsetter_fg_color;
-    background-size: 10px 10px;
+    background-size: 18px 18px;
     background-position: 0px 0px, 9px 9px;
     border: 1px solid @borders;
     filter: brightness(100%);
@@ -112,6 +112,17 @@
 .colorsetter:checked {
     filter: brightness(100%);
     box-shadow: inset 0px -3px 0px 0px @colorsetter_fg_color;
+}
+
+.colordialog_button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.colordialog_button > image {
+    -gtk-icon-size: 24px;
 }
 
 .strokewidthsetter {
@@ -178,7 +189,7 @@ from https://gitlab.com/posidon_software/paper/-/blob/main/src/css/style.css
 }
 
 .workspacerow.preview > image {
-    -gtk-icon-size: 17px;
+    -gtk-icon-size: 32px;
 }
 .workspacerow.preview > label {
     font-size: 22px;
