@@ -745,6 +745,7 @@ impl RnAppWindow {
                 .colorpicker()
                 .redo_button()
                 .set_sensitive(can_redo);
+
             self.main_header()
                 .canvasmenu()
                 .refresh_zoom_reset_label(total_zoom);
@@ -830,6 +831,7 @@ impl RnAppWindow {
                 }
                 PenStyle::Shaper => {
                     self.overlays().penpicker().shaper_toggle().set_active(true);
+                    self.overlays().colorpicker().shaper_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()
@@ -893,6 +895,10 @@ impl RnAppWindow {
                         .typewriter_toggle()
                         .set_active(true);
                     self.overlays()
+                        .colorpicker()
+                        .typewriter_toggle()
+                        .set_active(true);
+                    self.overlays()
                         .penssidebar()
                         .sidebar_stack()
                         .set_visible_child_name("typewriter_page");
@@ -910,6 +916,7 @@ impl RnAppWindow {
                 }
                 PenStyle::Eraser => {
                     self.overlays().penpicker().eraser_toggle().set_active(true);
+                    self.overlays().colorpicker().eraser_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()
@@ -921,12 +928,17 @@ impl RnAppWindow {
                         .selector_toggle()
                         .set_active(true);
                     self.overlays()
+                        .colorpicker()
+                        .selector_toggle()
+                        .set_active(true);
+                    self.overlays()
                         .penssidebar()
                         .sidebar_stack()
                         .set_visible_child_name("selector_page");
                 }
                 PenStyle::Tools => {
                     self.overlays().penpicker().tools_toggle().set_active(true);
+                    self.overlays().colorpicker().tools_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()

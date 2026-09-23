@@ -60,13 +60,21 @@ mod imp {
         #[template_child]
         pub(crate) active_color_label: TemplateChild<Label>,
         #[template_child]
-        pub(crate) undo_button: TemplateChild<Button>,
+        pub(crate) brush_toggle: TemplateChild<ToggleButton>,
         #[template_child]
-        pub(crate) redo_button: TemplateChild<Button>,
+        pub(crate) shaper_toggle: TemplateChild<ToggleButton>,
+        #[template_child]
+        pub(crate) typewriter_toggle: TemplateChild<ToggleButton>,
+        #[template_child]
+        pub(crate) eraser_toggle: TemplateChild<ToggleButton>,
+        #[template_child]
+        pub(crate) selector_toggle: TemplateChild<ToggleButton>,
         #[template_child]
         pub(crate) tools_toggle: TemplateChild<ToggleButton>,
         #[template_child]
-        pub(crate) brush_toggle: TemplateChild<ToggleButton>,
+        pub(crate) undo_button: TemplateChild<Button>,
+        #[template_child]
+        pub(crate) redo_button: TemplateChild<Button>,
     }
 
     impl Default for RnColorPicker {
@@ -93,8 +101,12 @@ mod imp {
                 setter_9: TemplateChild::default(),
                 colordialog_button: TemplateChild::default(),
                 active_color_label: TemplateChild::default(),
-                tools_toggle: TemplateChild::default(),
                 brush_toggle: TemplateChild::default(),
+                shaper_toggle: TemplateChild::default(),
+                typewriter_toggle: TemplateChild::default(),
+                eraser_toggle: TemplateChild::default(),
+                selector_toggle: TemplateChild::default(),
+                tools_toggle: TemplateChild::default(),
                 undo_button: TemplateChild::default(),
                 redo_button: TemplateChild::default(),
             }
@@ -506,16 +518,36 @@ impl RnColorPicker {
         self.imp().active_color_label.get()
     }
 
+    pub(crate) fn brush_toggle(&self) -> ToggleButton {
+        self.imp().brush_toggle.get()
+    }
+
+    pub(crate) fn shaper_toggle(&self) -> ToggleButton {
+        self.imp().shaper_toggle.get()
+    }
+
+    pub(crate) fn typewriter_toggle(&self) -> ToggleButton {
+        self.imp().typewriter_toggle.get()
+    }
+
+    pub(crate) fn eraser_toggle(&self) -> ToggleButton {
+        self.imp().eraser_toggle.get()
+    }
+
+    pub(crate) fn selector_toggle(&self) -> ToggleButton {
+        self.imp().selector_toggle.get()
+    }
+
+    pub(crate) fn tools_toggle(&self) -> ToggleButton {
+        self.imp().tools_toggle.get()
+    }
+
     pub(crate) fn undo_button(&self) -> Button {
         self.imp().undo_button.get()
     }
 
     pub(crate) fn redo_button(&self) -> Button {
         self.imp().redo_button.get()
-    }
-
-    pub(crate) fn brush_toggle(&self) -> ToggleButton {
-        self.imp().brush_toggle.get()
     }
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
@@ -551,12 +583,53 @@ impl RnColorPicker {
                 }
             }),
         );
+
         imp.brush_toggle.connect_toggled(clone!(
             #[weak]
             appwindow,
             move |brush_toggle| {
                 if brush_toggle.is_active() {
                     appwindow.set_pen_style(PenStyle::Brush);
+                }
+            }
+        ));
+
+        imp.shaper_toggle.connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |shaper_toggle| {
+                if shaper_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Shaper);
+                }
+            }
+        ));
+
+        imp.typewriter_toggle.connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |typewriter_toggle| {
+                if typewriter_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Typewriter);
+                }
+            }
+        ));
+
+        imp.eraser_toggle.get().connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |eraser_toggle| {
+                if eraser_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Eraser);
+                }
+            }
+        ));
+
+        imp.selector_toggle.get().connect_toggled(clone!(
+            #[weak]
+            appwindow,
+            move |selector_toggle| {
+                if selector_toggle.is_active() {
+                    appwindow.set_pen_style(PenStyle::Selector);
                 }
             }
         ));
@@ -590,10 +663,13 @@ impl RnColorPicker {
         imp.setter_9.set_width_request(compact_width_request);
         // imp.colordialog_button.set_width_request(compact_width_request);
         imp.colordialog_button.set_size_request(compact_width_request, compact_width_request);
+        imp.brush_toggle.set_size_request(compact_width_request, compact_width_request);
+        imp.shaper_toggle.set_size_request(compact_width_request, compact_width_request);
+        imp.typewriter_toggle.set_size_request(compact_width_request, compact_width_request);
+        imp.eraser_toggle.set_size_request(compact_width_request, compact_width_request);
+        imp.tools_toggle.set_size_request(compact_width_request, compact_width_request);
         imp.undo_button.set_size_request(compact_width_request, compact_width_request);
         imp.redo_button.set_size_request(compact_width_request, compact_width_request);
-        imp.brush_toggle.set_size_request(compact_width_request, compact_width_request);
-        imp.tools_toggle.set_size_request(compact_width_request, compact_width_request);
     }
 
     fn set_color_active_setter(&self, color: gdk::RGBA) {
