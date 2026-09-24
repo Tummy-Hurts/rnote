@@ -146,6 +146,8 @@ impl RnOverlays {
 
         self.setup_colorpicker(appwindow);
         self.setup_tabview(appwindow);
+
+        imp.penpicker.get().set_visible(false);
     }
 
     fn setup_colorpicker(&self, appwindow: &RnAppWindow) {
