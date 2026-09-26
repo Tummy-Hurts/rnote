@@ -3,8 +3,17 @@
 <interface>
   <template class="RnPensSideBar" parent="GtkWidget">
     <property name="layout-manager">
-      <object class="GtkBinLayout" />
+      <object class="GtkBoxLayout">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">0</property>
+      </object>
     </property>
+    <child>
+      <object class="RnColorPicker" id="colorpicker">
+        <property name="valign">center</property>
+        <property name="margin_start">6</property>
+      </object>
+    </child>
     <child>
       <object class="GtkStack" id="sidebar_stack">
         <property name="transition_duration">300</property>

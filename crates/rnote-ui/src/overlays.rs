@@ -1,11 +1,11 @@
 // Imports
-use crate::RnPensSideBar;
 use crate::canvaswrapper::RnCanvasWrapper;
-use crate::{RnAppWindow, RnColorPicker, RnPenPicker, dialogs};
+use crate::RnPensSideBar;
+use crate::{dialogs, RnAppWindow, RnColorPicker, RnPenPicker};
 use core::time::Duration;
 use gtk4::{
-    CompositeTemplate, Overlay, ProgressBar, ScrolledWindow, Widget, gio, glib, glib::clone,
-    prelude::*, subclass::prelude::*,
+    gio, glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate, Overlay,
+    ProgressBar, ScrolledWindow, Widget,
 };
 use rnote_engine::ext::GdkRGBAExt;
 use rnote_engine::pens::PenStyle;
@@ -29,8 +29,6 @@ mod imp {
         pub(crate) progressbar: TemplateChild<ProgressBar>,
         #[template_child]
         pub(crate) penpicker: TemplateChild<RnPenPicker>,
-        #[template_child]
-        pub(crate) colorpicker: TemplateChild<RnColorPicker>,
         #[template_child]
         pub(crate) tabview: TemplateChild<adw::TabView>,
         #[template_child]
@@ -75,8 +73,6 @@ mod imp {
     impl RnOverlays {
         fn setup_toolbar_overlay(&self) {
             self.toolbar_overlay
-                .set_measure_overlay(&*self.colorpicker, true);
-            self.toolbar_overlay
                 .set_measure_overlay(&*self.penpicker, true);
             self.toolbar_overlay
                 .set_measure_overlay(&*self.sidebar_box, true);
@@ -109,7 +105,7 @@ impl RnOverlays {
     }
 
     pub(crate) fn colorpicker(&self) -> RnColorPicker {
-        self.imp().colorpicker.get()
+        self.imp().penssidebar.get().colorpicker()
     }
 
     pub(crate) fn toast_overlay(&self) -> adw::ToastOverlay {
@@ -138,8 +134,8 @@ impl RnOverlays {
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
         let imp = self.imp();
-        imp.colorpicker.get().init(appwindow);
         imp.penssidebar.get().init(appwindow);
+        imp.penssidebar.get().colorpicker().init(appwindow);
         imp.penpicker.get().init(appwindow);
         imp.penssidebar.get().brush_page().init(appwindow);
         imp.penssidebar.get().shaper_page().init(appwindow);
@@ -150,12 +146,15 @@ impl RnOverlays {
 
         self.setup_colorpicker(appwindow);
         self.setup_tabview(appwindow);
+
+        imp.penpicker.get().set_visible(false);
     }
 
     fn setup_colorpicker(&self, appwindow: &RnAppWindow) {
         let imp = self.imp();
+        let colorpicker = imp.penssidebar.get().colorpicker();
 
-        imp.colorpicker.connect_notify_local(
+        colorpicker.connect_notify_local(
             Some("stroke-color"),
             clone!(
                 #[weak]
@@ -192,7 +191,7 @@ impl RnOverlays {
             ),
         );
 
-        imp.colorpicker.connect_notify_local(
+        colorpicker.connect_notify_local(
             Some("fill-color"),
             clone!(
                 #[weak]

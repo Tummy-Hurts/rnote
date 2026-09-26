@@ -1,6 +1,6 @@
 .sidebar_action_button {
-    min-width: 42px;
-    min-height: 42px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
 }
@@ -9,12 +9,12 @@
 .sidebar_action_button > box > image,
 .sidebar_action_button > button > box > image
 {
-    -gtk-icon-size: 32px;
+    -gtk-icon-size: 24px;
 }
 
 .cursor_picker_button {
-    min-width: 42px;
-    min-height: 42px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
 }
@@ -23,7 +23,7 @@
 .cursor_picker_button > box image,
 .cursor_picker_button > button > box > image
 {
-    -gtk-icon-size: 32px;
+    -gtk-icon-size: 24px;
 }
 
 .main_title.unsaved_changes .title {
@@ -49,8 +49,8 @@
 }
 
 .colorpad {
-    min-width: 32px;
-    min-height: 32px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
     background-blend-mode: screen;
@@ -83,8 +83,8 @@
 }
 
 .colorsetter {
-    min-width: 32px;
-    min-height: 32px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
     background-blend-mode: screen;
@@ -114,9 +114,42 @@
     box-shadow: inset 0px -3px 0px 0px @colorsetter_fg_color;
 }
 
+.colordialog_button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.colordialog_button > image {
+    -gtk-icon-size: 24px;
+}
+
+.undo_redo_button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.undo_redo_button > image {
+    -gtk-icon-size: 24px;
+}
+
+.temp {
+    min-width: 16px;
+    min-height: 16px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.temp > image {
+    -gtk-icon-size: 16px;
+}
+
 .strokewidthsetter {
-    min-width: 42px;
-    min-height: 42px;
+    min-width: 24px;
+    min-height: 24px;
     padding: 0px;
     margin: 0px;
 }

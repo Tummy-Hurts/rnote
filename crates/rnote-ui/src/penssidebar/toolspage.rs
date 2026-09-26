@@ -1,8 +1,8 @@
 // Imports
 use crate::RnAppWindow;
 use gtk4::{
-    Button, CompositeTemplate, MenuButton, Popover, ToggleButton, Widget, glib, glib::clone,
-    prelude::*, subclass::prelude::*,
+    glib, glib::clone, prelude::*, subclass::prelude::*, Button, CompositeTemplate, MenuButton,
+    Popover, ToggleButton, Widget,
 };
 use rnote_engine::pens::pensconfig::toolsconfig::ToolStyle;
 

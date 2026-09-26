@@ -16,10 +16,10 @@ pub(crate) use toolspage::RnToolsPage;
 pub(crate) use typewriterpage::RnTypewriterPage;
 
 // Imports
-use crate::RnAppWindow;
+use crate::{RnAppWindow, RnColorPicker};
 use gtk4::{
-    CompositeTemplate, Stack, StackPage, Widget, glib, glib::clone, prelude::*,
-    subclass::prelude::*,
+    glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate, Stack, StackPage,
+    Widget,
 };
 
 mod imp {
@@ -54,6 +54,8 @@ mod imp {
         pub(crate) tools_stackpage: TemplateChild<StackPage>,
         #[template_child]
         pub(crate) tools_page: TemplateChild<RnToolsPage>,
+        #[template_child]
+        pub(crate) colorpicker: TemplateChild<RnColorPicker>,
     }
 
     #[glib::object_subclass]
@@ -129,6 +131,10 @@ impl RnPensSideBar {
 
     pub(crate) fn tools_page(&self) -> RnToolsPage {
         self.imp().tools_page.get()
+    }
+
+    pub(crate) fn colorpicker(&self) -> RnColorPicker {
+        self.imp().colorpicker.get()
     }
 
     pub(crate) fn init(&self, appwindow: &RnAppWindow) {
