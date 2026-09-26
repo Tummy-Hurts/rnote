@@ -375,10 +375,18 @@ impl RnAppWindow {
                 .penpicker()
                 .undo_button()
                 .set_sensitive(!hide_undo);
+            self.overlays()
+                .colorpicker()
+                .undo_button()
+                .set_sensitive(!hide_undo);
         }
         if let Some(hide_redo) = widget_flags.hide_redo {
             self.overlays()
                 .penpicker()
+                .redo_button()
+                .set_sensitive(!hide_redo);
+            self.overlays()
+                .colorpicker()
                 .redo_button()
                 .set_sensitive(!hide_redo);
         }
@@ -796,6 +804,15 @@ impl RnAppWindow {
                 .penpicker()
                 .redo_button()
                 .set_sensitive(can_redo);
+            self.overlays()
+                .colorpicker()
+                .undo_button()
+                .set_sensitive(can_undo);
+            self.overlays()
+                .colorpicker()
+                .redo_button()
+                .set_sensitive(can_redo);
+
             self.main_header()
                 .canvasmenu()
                 .refresh_zoom_reset_label(total_zoom);
@@ -808,6 +825,7 @@ impl RnAppWindow {
             match pen_style {
                 PenStyle::Brush => {
                     self.overlays().penpicker().brush_toggle().set_active(true);
+                    self.overlays().colorpicker().brush_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()
@@ -880,6 +898,7 @@ impl RnAppWindow {
                 }
                 PenStyle::Shaper => {
                     self.overlays().penpicker().shaper_toggle().set_active(true);
+                    self.overlays().colorpicker().shaper_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()
@@ -943,6 +962,10 @@ impl RnAppWindow {
                         .typewriter_toggle()
                         .set_active(true);
                     self.overlays()
+                        .colorpicker()
+                        .typewriter_toggle()
+                        .set_active(true);
+                    self.overlays()
                         .penssidebar()
                         .sidebar_stack()
                         .set_visible_child_name("typewriter_page");
@@ -960,6 +983,7 @@ impl RnAppWindow {
                 }
                 PenStyle::Eraser => {
                     self.overlays().penpicker().eraser_toggle().set_active(true);
+                    self.overlays().colorpicker().eraser_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()
@@ -971,12 +995,17 @@ impl RnAppWindow {
                         .selector_toggle()
                         .set_active(true);
                     self.overlays()
+                        .colorpicker()
+                        .selector_toggle()
+                        .set_active(true);
+                    self.overlays()
                         .penssidebar()
                         .sidebar_stack()
                         .set_visible_child_name("selector_page");
                 }
                 PenStyle::Tools => {
                     self.overlays().penpicker().tools_toggle().set_active(true);
+                    self.overlays().colorpicker().tools_toggle().set_active(true);
                     self.overlays()
                         .penssidebar()
                         .sidebar_stack()

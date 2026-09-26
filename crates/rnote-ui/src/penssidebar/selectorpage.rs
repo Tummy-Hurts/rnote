@@ -1,7 +1,7 @@
 // Imports
 use crate::RnAppWindow;
 use gtk4::{
-    CompositeTemplate, ToggleButton, Widget, glib, glib::clone, prelude::*, subclass::prelude::*,
+    glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate, ToggleButton, Widget,
 };
 use rnote_engine::pens::pensconfig::selectorconfig::SelectorStyle;
 

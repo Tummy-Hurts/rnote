@@ -1,20 +1,20 @@
 // Imports
 use crate::{
-    RnAppWindow, RnGroupedIconPicker, RnStrokeWidthPicker,
-    groupediconpicker::GroupedIconPickerGroupData,
+    groupediconpicker::GroupedIconPickerGroupData, RnAppWindow, RnGroupedIconPicker,
+    RnStrokeWidthPicker,
 };
 use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
 use gtk4::{
-    Button, CompositeTemplate, ListBox, MenuButton, Popover, StringList, Widget, glib, glib::clone,
+    glib, glib::clone, Button, CompositeTemplate, ListBox, MenuButton, Popover, StringList, Widget,
 };
 use num_traits::cast::ToPrimitive;
 use rnote_compose::builders::ShapeBuilderType;
 use rnote_compose::constraints::ConstraintRatio;
 use rnote_compose::style::rough::roughoptions::FillStyle;
 use rnote_compose::style::smooth::{LineCap, LineStyle, SmoothOptions};
-use rnote_engine::pens::pensconfig::ShaperConfig;
 use rnote_engine::pens::pensconfig::shaperconfig::ShaperStyle;
+use rnote_engine::pens::pensconfig::ShaperConfig;
 
 mod imp {
     use super::*;

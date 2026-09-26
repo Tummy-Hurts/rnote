@@ -12,11 +12,13 @@
     </style>
     <child>
       <object class="GtkBox">
-        <property name="orientation">horizontal</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkBox" id="active_colors_box">
+            <property name="orientation">vertical</property>
             <property name="spacing">3</property>
+            <property name="margin-top">6</property>
             <child>
               <object class="RnColorPad" id="stroke_color_pad">
                 <property name="icon_name">stroke-color-symbolic</property>
@@ -34,12 +36,13 @@
           </object>
         </child>
         <child>
-          <object class="GtkSeparator"></object>
+          <object class="GtkSeparator">
+            <property name="orientation">horizontal</property>
+          </object>
         </child>
         <child>
           <object class="GtkBox" id="setter_box">
-            <property name="orientation">horizontal</property>
-            <property name="homogeneous">true</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <style>
               <class name="linked" />
@@ -85,8 +88,111 @@
         <child>
           <object class="GtkButton" id="colordialog_button">
             <property name="icon-name">preferences-color-symbolic</property>
+            <property name="margin-bottom">3</property>
             <style>
               <class name="flat" />
+              <class name="colordialog_button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="orientation">horizontal</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="brush_toggle">
+            <property name="icon_name">pen-brush-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Brush</property>
+            <!-- <property name="hexpand">true</property> -->
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="shaper_toggle">
+            <property name="icon_name">pen-shaper-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Shaper</property>
+            <!-- <property name="hexpand">true</property> -->
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="typewriter_toggle">
+            <property name="icon_name">pen-typewriter-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Typewriter</property>
+            <!-- <property name="hexpand">true</property> -->
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="eraser_toggle">
+            <property name="icon_name">pen-eraser-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Eraser</property>
+            <!-- <property name="hexpand">true</property> -->
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="selector_toggle">
+            <property name="icon_name">pen-selector-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Selector</property>
+            <!-- <property name="hexpand">true</property> -->
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="tools_toggle">
+            <property name="icon_name">pen-tools-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Tools</property>
+            <!-- <property name="hexpand">true</property> -->
+            <property name="group">brush_toggle</property>
+            <style>
+              <class name="flat" />
+              <class name="temp" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="undo_button">
+            <property name="sensitive">false</property>
+            <property name="icon_name">edit-undo-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Undo</property>
+            <property name="action-name">win.undo</property>
+            <style>
+              <class name="flat" />
+              <class name="undo_redo_button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="redo_button">
+            <property name="sensitive">false</property>
+            <property name="icon_name">edit-redo-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Redo</property>
+            <property name="action-name">win.redo</property>
+            <property name="margin-bottom">6</property>
+            <style>
+              <class name="flat" />
+              <class name="undo_redo_button" />
             </style>
           </object>
         </child>
