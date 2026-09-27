@@ -10,7 +10,7 @@ use crate::PenPath;
 use crate::ext::Vector2Ext;
 use crate::penpath::{self, Segment};
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable,
+    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, LogicArrow
 };
 use kurbo::Shape;
 use p2d::bounding_volume::{Aabb, BoundingVolume};
@@ -38,6 +38,29 @@ impl Composer<SmoothOptions> for Line {
 }
 
 impl Composer<SmoothOptions> for Arrow {
+    fn composed_bounds(&self, options: &SmoothOptions) -> Aabb {
+        self.internal_compute_bounds(Some(options.stroke_width))
+            .loosened(options.stroke_width)
+    }
+
+    fn draw_composed(&self, cx: &mut impl piet::RenderContext, options: &SmoothOptions) {
+        cx.save().unwrap();
+
+        if let Some(stroke_color) = options.stroke_color {
+            let arrow = self.to_kurbo(Some(options.stroke_width));
+            cx.stroke_styled(
+                arrow,
+                &Into::<piet::Color>::into(stroke_color),
+                options.stroke_width,
+                &options.piet_stroke_style,
+            );
+        }
+
+        cx.restore().unwrap();
+    }
+}
+
+impl Composer<SmoothOptions> for LogicArrow {
     fn composed_bounds(&self, options: &SmoothOptions) -> Aabb {
         self.internal_compute_bounds(Some(options.stroke_width))
             .loosened(options.stroke_width)
@@ -380,6 +403,7 @@ impl Composer<SmoothOptions> for crate::Shape {
             crate::Shape::CubicBezier(cubbez) => cubbez.composed_bounds(options),
             crate::Shape::Polyline(polyline) => polyline.composed_bounds(options),
             crate::Shape::Polygon(polygon) => polygon.composed_bounds(options),
+            crate::Shape::LogicArrow(logicarrow) => logicarrow.composed_bounds(options),
         }
     }
 
@@ -393,6 +417,7 @@ impl Composer<SmoothOptions> for crate::Shape {
             crate::Shape::CubicBezier(cubbez) => cubbez.draw_composed(cx, options),
             crate::Shape::Polyline(polyline) => polyline.draw_composed(cx, options),
             crate::Shape::Polygon(polygon) => polygon.draw_composed(cx, options),
+            crate::Shape::LogicArrow(logicarrow) => logicarrow.draw_composed(cx, options),
         }
     }
 }

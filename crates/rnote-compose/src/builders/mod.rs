@@ -1,5 +1,6 @@
 // Modules
 mod arrowbuilder;
+mod logicarrowbuilder;
 /// Buildable trait.
 pub mod buildable;
 mod coordsystem2dbuilder;
@@ -20,6 +21,7 @@ mod rectanglebuilder;
 
 // Re-exports
 pub use arrowbuilder::ArrowBuilder;
+pub use logicarrowbuilder::LogicArrowBuilder;
 pub use coordsystem2dbuilder::CoordSystem2DBuilder;
 pub use coordsystem3dbuilder::CoordSystem3DBuilder;
 pub use cubbezbuilder::CubBezBuilder;
@@ -93,6 +95,9 @@ pub enum ShapeBuilderType {
     /// A polygon builder
     #[serde(rename = "polygon")]
     Polygon,
+    /// An logicarrow builder
+    #[serde(rename = "logicarrow")]
+    LogicArrow,
 }
 
 impl ShapeBuilderType {
@@ -112,6 +117,7 @@ impl ShapeBuilderType {
             "shapebuilder-cubbez-symbolic" => Some(Self::CubBez),
             "shapebuilder-polyline-symbolic" => Some(Self::Polyline),
             "shapebuilder-polygon-symbolic" => Some(Self::Polygon),
+            "shapebuilder-logicarrow-symbolic" => Some(Self::LogicArrow),
             _ => None,
         }
     }
@@ -134,6 +140,7 @@ impl ShapeBuilderType {
             Self::CubBez => String::from("shapebuilder-cubbez-symbolic"),
             Self::Polyline => String::from("shapebuilder-polyline-symbolic"),
             Self::Polygon => String::from("shapebuilder-polygon-symbolic"),
+            Self::LogicArrow => String::from("shapebuilder-arrow-symbolic"),
         }
     }
 }

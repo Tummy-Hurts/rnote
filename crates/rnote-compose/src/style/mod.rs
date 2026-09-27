@@ -17,7 +17,7 @@ use self::textured::TexturedOptions;
 
 // Imports
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle,
+    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, LogicArrow
 };
 use crate::{Color, PenPath, Shape};
 use anyhow::Context;
@@ -138,6 +138,24 @@ impl Composer<Style> for Line {
 }
 
 impl Composer<Style> for Arrow {
+    fn composed_bounds(&self, options: &Style) -> p2d::bounding_volume::Aabb {
+        match options {
+            Style::Smooth(options) => self.composed_bounds(options),
+            Style::Rough(options) => self.composed_bounds(options),
+            Style::Textured(_options) => unimplemented!(),
+        }
+    }
+
+    fn draw_composed(&self, cx: &mut impl piet::RenderContext, options: &Style) {
+        match options {
+            Style::Smooth(options) => self.draw_composed(cx, options),
+            Style::Rough(options) => self.draw_composed(cx, options),
+            Style::Textured(_options) => unimplemented!(),
+        }
+    }
+}
+
+impl Composer<Style> for LogicArrow {
     fn composed_bounds(&self, options: &Style) -> p2d::bounding_volume::Aabb {
         match options {
             Style::Smooth(options) => self.composed_bounds(options),
@@ -292,6 +310,7 @@ impl Composer<Style> for Shape {
             Shape::CubicBezier(cubic_bezier) => cubic_bezier.composed_bounds(options),
             Shape::Polyline(polyline) => polyline.composed_bounds(options),
             Shape::Polygon(polygon) => polygon.composed_bounds(options),
+            Shape::LogicArrow(logicarrow) => logicarrow.composed_bounds(options),
         }
     }
 
@@ -305,6 +324,7 @@ impl Composer<Style> for Shape {
             Shape::CubicBezier(cubic_bezier) => cubic_bezier.draw_composed(cx, options),
             Shape::Polyline(polyline) => polyline.draw_composed(cx, options),
             Shape::Polygon(polygon) => polygon.draw_composed(cx, options),
+            Shape::LogicArrow(logicarrow) => logicarrow.draw_composed(cx, options),
         }
     }
 }
