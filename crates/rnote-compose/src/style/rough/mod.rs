@@ -10,7 +10,7 @@ use super::Composer;
 use crate::Color;
 use crate::ext::{DAffine2Ext, Vector2Ext};
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable,
+    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, LogicArrow
 };
 use p2d::bounding_volume::{Aabb, BoundingVolume};
 use roughr::Point2D;
@@ -92,6 +92,59 @@ impl Composer<RoughOptions> for Arrow {
             let rline = {
                 let rline = self.compute_rline(Some(options.stroke_width));
                 Point2D::new(rline.x, rline.y)
+            };
+            let tip = {
+                let tip = self.tip.to_kurbo_point();
+                Point2D::new(tip.x, tip.y)
+            };
+
+            rough_piet::KurboGenerator::new(generate_roughr_options(options))
+                .linear_path(&[lline, tip, rline], false)
+        };
+
+        arrow_stem.draw(cx);
+        tip.draw(cx);
+
+        cx.restore().unwrap();
+    }
+}
+
+impl Composer<RoughOptions> for LogicArrow {
+    fn composed_bounds(&self, options: &RoughOptions) -> p2d::bounding_volume::Aabb {
+        self.internal_compute_bounds(Some(options.stroke_width))
+            .loosened(options.stroke_width * 0.5 + RoughOptions::ROUGH_BOUNDS_MARGIN)
+    }
+
+    fn draw_composed(&self, cx: &mut impl piet::RenderContext, options: &RoughOptions) {
+        cx.save().unwrap();
+
+        let arrow_stem = rough_piet::KurboGenerator::new(generate_roughr_options(options)).line(
+            self.start[0],
+            self.start[1],
+            self.tip[0],
+            self.tip[1],
+        );
+
+        let tip = {
+            let lline = {
+                let lline = self
+                    .compute_lline(Some(options.stroke_width))
+                    .to_kurbo_point();
+                Point2D::new(lline.x, lline.y)
+            };
+            let rline = {
+                let rline = self.compute_rline(Some(options.stroke_width));
+                Point2D::new(rline.x, rline.y)
+            };
+            let lline_start = {
+                let lline_start = self
+                    .compute_lline_start(Some(options.stroke_width))
+                    .to_kurbo_point();
+                Point2D::new(lline_start.x, lline_start.y)
+            };
+            let rline_start = {
+                let rline_start = self.compute_rline_start(Some(options.stroke_width));
+                Point2D::new(rline_start.x, rline_start.y)
             };
             let tip = {
                 let tip = self.tip.to_kurbo_point();
@@ -262,6 +315,7 @@ impl Composer<RoughOptions> for crate::Shape {
             crate::Shape::CubicBezier(cubbez) => cubbez.composed_bounds(options),
             crate::Shape::Polyline(polyline) => polyline.composed_bounds(options),
             crate::Shape::Polygon(polygon) => polygon.composed_bounds(options),
+            crate::Shape::LogicArrow(logicarrow) => logicarrow.composed_bounds(options),
         }
     }
 
@@ -275,6 +329,7 @@ impl Composer<RoughOptions> for crate::Shape {
             crate::Shape::CubicBezier(cubbez) => cubbez.draw_composed(cx, options),
             crate::Shape::Polyline(polyline) => polyline.draw_composed(cx, options),
             crate::Shape::Polygon(polygon) => polygon.draw_composed(cx, options),
+            crate::Shape::LogicArrow(logicarrow) => logicarrow.draw_composed(cx, options),
         }
     }
 }
