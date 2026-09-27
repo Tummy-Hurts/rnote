@@ -667,7 +667,7 @@ fn shape_builder_type_icons_get_groups() -> Vec<GroupedIconPickerGroupData> {
         GroupedIconPickerGroupData {
             name: gettext("Math & Logic"),
             icons: StringList::new(&[
-                "shapebuilder-logicarrow",
+                "shapebuilder-logicarrow-symbolic",
                 // "shapebuilder-implies",
                 // "shapebuilder-iff",
             ]),
@@ -676,6 +676,7 @@ fn shape_builder_type_icons_get_groups() -> Vec<GroupedIconPickerGroupData> {
 }
 
 fn shape_builder_type_icons_to_display_name(icon_name: &str) -> String {
+    // println!("{:?}", icon_name);
     match ShapeBuilderType::from_icon_name(icon_name)
         .expect("ShapeBuilderTypePicker failed, display name of unknown icon name requested")
     {
