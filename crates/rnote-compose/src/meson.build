@@ -1,6 +1,7 @@
 # Specify sources
 rnote_compose_sources = files(
     'builders/arrowbuilder.rs',
+    'builders/logicarrowbuilder.rs',
     'builders/buildable.rs',
     'builders/coordsystem2dbuilder.rs',
     'builders/coordsystem3dbuilder.rs',
@@ -22,6 +23,7 @@ rnote_compose_sources = files(
     'penpath/mod.rs',
     'penpath/segment.rs',
     'shapes/arrow.rs',
+    'shapes/logicarrow.rs',
     'shapes/cubbez.rs',
     'shapes/ellipse.rs',
     'shapes/line.rs',

@@ -1,6 +1,6 @@
 // Imports
 use super::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable,
+    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, LogicArrow,
 };
 use crate::Transformable;
 use p2d::bounding_volume::Aabb;
@@ -35,6 +35,9 @@ pub enum Shape {
     /// A polygon shape.
     #[serde(rename = "polygon")]
     Polygon(Polygon),
+    /// A logicarrow.
+    #[serde(rename = "logicarrow")]
+    LogicArrow(LogicArrow),
 }
 
 impl Default for Shape {
@@ -70,6 +73,9 @@ impl Transformable for Shape {
             Self::Polygon(polygon) => {
                 polygon.translate(offset);
             }
+            Self::LogicArrow(logicarrow) => {
+                logicarrow.translate(offset);
+            }
         }
     }
 
@@ -98,6 +104,9 @@ impl Transformable for Shape {
             }
             Self::Polygon(polygon) => {
                 polygon.rotate(angle, center);
+            }
+            Self::LogicArrow(logicarrow) => {
+                logicarrow.rotate(angle, center);
             }
         }
     }
@@ -128,6 +137,9 @@ impl Transformable for Shape {
             Self::Polygon(polygon) => {
                 polygon.scale(scale);
             }
+            Self::LogicArrow(logicarrow) => {
+                logicarrow.scale(scale);
+            }
         }
     }
 }
@@ -143,6 +155,7 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.bounds(),
             Self::Polyline(polyline) => polyline.bounds(),
             Self::Polygon(polygon) => polygon.bounds(),
+            Self::LogicArrow(logicarrow) => logicarrow.bounds(),
         }
     }
 
@@ -156,6 +169,7 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.hitboxes(),
             Self::Polyline(polyline) => polyline.hitboxes(),
             Self::Polygon(polygon) => polygon.hitboxes(),
+            Self::LogicArrow(logicarrow) => logicarrow.hitboxes(),
         }
     }
 
@@ -169,6 +183,7 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.outline_path(),
             Self::Polyline(polyline) => polyline.outline_path(),
             Self::Polygon(polygon) => polygon.outline_path(),
+            Self::LogicArrow(logicarrow) => logicarrow.outline_path(),
         }
     }
 }
