@@ -136,16 +136,6 @@ impl Composer<RoughOptions> for LogicArrow {
                 let rline = self.compute_rline(Some(options.stroke_width));
                 Point2D::new(rline.x, rline.y)
             };
-            let lline_start = {
-                let lline_start = self
-                    .compute_lline_start(Some(options.stroke_width))
-                    .to_kurbo_point();
-                Point2D::new(lline_start.x, lline_start.y)
-            };
-            let rline_start = {
-                let rline_start = self.compute_rline_start(Some(options.stroke_width));
-                Point2D::new(rline_start.x, rline_start.y)
-            };
             let tip = {
                 let tip = self.tip.to_kurbo_point();
                 Point2D::new(tip.x, tip.y)
@@ -155,8 +145,31 @@ impl Composer<RoughOptions> for LogicArrow {
                 .linear_path(&[lline, tip, rline], false)
         };
 
+        let start = {
+            let lline_start = {
+                let lline_start = self
+                    .compute_lline_start(Some(options.stroke_width))
+                    .to_kurbo_point();
+                Point2D::new(lline_start.x, lline_start.y)
+            };
+
+            let rline_start = {
+                let rline_start = self.compute_rline_start(Some(options.stroke_width));
+                Point2D::new(rline_start.x, rline_start.y)
+            };
+
+            let start = {
+                let start = self.start.to_kurbo_point();
+                Point2D::new(start.x, start.y)
+            };
+
+            rough_piet::KurboGenerator::new(generate_roughr_options(options))
+                .linear_path(&[lline_start, start, rline_start], false)
+        };
+
         arrow_stem.draw(cx);
         tip.draw(cx);
+        start.draw(cx);
 
         cx.restore().unwrap();
     }
