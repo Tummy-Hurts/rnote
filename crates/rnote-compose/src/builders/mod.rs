@@ -140,7 +140,7 @@ impl ShapeBuilderType {
             Self::CubBez => String::from("shapebuilder-cubbez-symbolic"),
             Self::Polyline => String::from("shapebuilder-polyline-symbolic"),
             Self::Polygon => String::from("shapebuilder-polygon-symbolic"),
-            Self::LogicArrow => String::from("shapebuilder-arrow-symbolic"),
+            Self::LogicArrow => String::from("shapebuilder-logicarrow-symbolic"),
         }
     }
 }
