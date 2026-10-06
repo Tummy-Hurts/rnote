@@ -100,6 +100,7 @@ impl Default for RnBrushPage {
 }
 
 impl RnBrushPage {
+    const COMPACT_WIDTH_REQUEST: i32 = 24;
     pub(crate) fn new() -> Self {
         glib::Object::new()
     }
@@ -197,6 +198,7 @@ impl RnBrushPage {
         let imp = self.imp();
         let brushstyle_popover = imp.brushstyle_popover.get();
         let brushconfig_popover = imp.brushconfig_popover.get();
+        self.apply_compact_width();
 
         // Popovers
         imp.brushstyle_popover_close_button.connect_clicked(clone!(
@@ -425,6 +427,14 @@ impl RnBrushPage {
                         .distribution = brushpage.texturedstyle_dots_distribution();
                 }
             ));
+    }
+
+    fn apply_compact_width(&self) {
+        let imp = self.imp();
+        let compact_width_request = Self::COMPACT_WIDTH_REQUEST;
+
+        imp.brushstyle_menubutton.set_size_request(compact_width_request, compact_width_request);
+        imp.brushconfig_menubutton.set_size_request(compact_width_request, compact_width_request);
     }
 
     pub(crate) fn refresh_ui(&self, appwindow: &RnAppWindow) {

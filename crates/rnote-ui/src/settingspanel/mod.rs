@@ -596,7 +596,7 @@ impl RnSettingsPanel {
             .build();
 
         let set_overlays_margins = |appwindow: &RnAppWindow, row_active: bool| {
-            let (m1, m2) = if row_active { (18, 72) } else { (9, 63) };
+            let (m1, m2) = if row_active { (18, 18) } else { (9, 18) }; // 18, 72 and 9, 63
             appwindow.overlays().penpicker().set_margin_bottom(m1);
             appwindow.overlays().sidebar_box().set_margin_start(m1);
             appwindow.overlays().sidebar_box().set_margin_end(m1);

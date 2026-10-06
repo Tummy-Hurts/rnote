@@ -4,7 +4,7 @@
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
       </object>
     </property>
     <property name="hexpand">false</property>
@@ -26,7 +26,7 @@
     <child>
       <object class="GtkSpinButton" id="font_size_spinbutton">
         <property name="tooltip-text" translatable="yes">Edit Font Size</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="numeric">true</property>
         <property name="digits">0</property>
         <property name="climb-rate">1</property>
@@ -58,7 +58,7 @@
     </child>
     <child>
       <object class="GtkBox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <style>
           <class name="linked" />
         </style>
@@ -119,7 +119,7 @@
     </child>
     <child>
       <object class="GtkBox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <style>
           <class name="linked" />
         </style>

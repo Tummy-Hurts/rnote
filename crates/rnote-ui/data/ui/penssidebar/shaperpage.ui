@@ -4,14 +4,14 @@
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
       </object>
     </property>
     <property name="hexpand">false</property>
     <property name="vexpand">false</property>
     <child>
       <object class="GtkBox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="vexpand">false</property>
         <child>
           <object class="GtkMenuButton" id="shapebuildertype_menubutton">
@@ -66,13 +66,13 @@
     <object class="GtkPopover" id="shapeconfig_popover">
       <child>
         <object class="GtkBox">
-          <property name="orientation">vertical</property>
+          <property name="orientation">horizontal</property>
           <property name="margin-top">6</property>
           <property name="margin-bottom">6</property>
           <property name="margin-start">6</property>
           <property name="margin-end">6</property>
           <property name="spacing">12</property>
-          <property name="width-request">330</property>
+          <!-- <property name="width-request">330</property> -->
           <child>
             <object class="GtkBox">
               <child>
@@ -250,7 +250,7 @@
               <property name="title" translatable="yes">Constraints</property>
               <child>
                 <object class="GtkListBox">
-                  <property name="width-request">300</property>
+                  <!-- <property name="width-request">300</property> -->
                   <property name="selection-mode">none</property>
                   <style>
                     <class name="content" />
@@ -290,7 +290,7 @@ constraints when this switch is off/on</property>
     <object class="GtkPopover" id="shapebuildertype_popover">
       <child>
         <object class="GtkBox">
-          <property name="orientation">vertical</property>
+          <property name="orientation">horizontal</property>
           <property name="margin-top">6</property>
           <property name="margin-bottom">6</property>
           <property name="margin-start">6</property>
@@ -321,7 +321,7 @@ constraints when this switch is off/on</property>
           </child>
           <child>
             <object class="RnGroupedIconPicker" id="shapebuildertype_picker">
-              <property name="width-request">250</property>
+              <!-- <property name="width-request">250</property> -->
             </object>
           </child>
         </object>

@@ -40,10 +40,10 @@
           <object class="GtkBox" id="sidebar_box">
             <property name="hexpand">false</property>
             <property name="vexpand">false</property>
-            <property name="halign">end</property>
-            <property name="valign">center</property>
-            <property name="margin-top">72</property>
-            <property name="margin-bottom">72</property>
+            <property name="halign">center</property>
+            <property name="valign">end</property>
+            <property name="margin-top">18</property>
+            <property name="margin-bottom">18</property>
             <property name="margin-start">18</property>
             <property name="margin-end">18</property>
             <style>
@@ -54,13 +54,13 @@
                 <property name="propagate-natural-width">true</property>
                 <property name="propagate-natural-height">true</property>
                 <property name="overlay-scrolling">true</property>
-                <property name="hscrollbar-policy">never</property>
-                <property name="vscrollbar-policy">automatic</property>
-                <property name="hexpand">false</property>
-                <property name="halign">fill</property>
-                <property name="vexpand">true</property>
+                <property name="hscrollbar-policy">automatic</property>
+                <property name="vscrollbar-policy">never</property>
+                <property name="hexpand">true</property>
+                <property name="halign">center</property>
+                <property name="vexpand">false</property>
                 <property name="valign">fill</property>
-                <property name="min-content-height">240</property>
+                <property name="min-content-height">16</property>
                 <property name="window-placement">top-left</property>
                 <child>
                   <object class="RnPensSideBar" id="penssidebar">

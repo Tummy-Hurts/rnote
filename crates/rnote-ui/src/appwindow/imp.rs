@@ -718,7 +718,7 @@ impl RnAppWindow {
                 .settings_scroller()
                 .set_placement(CornerType::TopRight);
 
-            obj.overlays().sidebar_box().set_halign(Align::Start);
+            obj.overlays().sidebar_box().set_halign(Align::Center);
             obj.overlays()
                 .sidebar_scroller()
                 .set_placement(CornerType::TopRight);

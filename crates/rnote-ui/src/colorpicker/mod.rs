@@ -649,8 +649,7 @@ impl RnColorPicker {
         let imp = self.imp();
         let compact_width_request = Self::COMPACT_WIDTH_REQUEST;
 
-        imp.stroke_color_pad
-            .set_width_request(compact_width_request);
+        imp.stroke_color_pad.set_width_request(compact_width_request);
         imp.fill_color_pad.set_width_request(compact_width_request);
         imp.setter_1.set_width_request(compact_width_request);
         imp.setter_2.set_width_request(compact_width_request);

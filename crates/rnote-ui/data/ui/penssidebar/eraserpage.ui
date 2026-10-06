@@ -4,14 +4,14 @@
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
       </object>
     </property>
     <property name="hexpand">false</property>
     <property name="vexpand">false</property>
     <child>
       <object class="GtkBox" id="eraserstyle_togglebox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="homogeneous">true</property>
         <style>
           <class name="linked" />

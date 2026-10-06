@@ -173,8 +173,8 @@
 from https://gitlab.com/posidon_software/paper/-/blob/main/src/css/style.css
 */
 .workspacerow {
-    min-width: 30px;
-    min-height: 40px;
+    min-width: 20px;
+    min-height: 30px;
     margin: 4px 3px;
     padding: 3px;
     transition: opacity .1s;
@@ -204,8 +204,8 @@ from https://gitlab.com/posidon_software/paper/-/blob/main/src/css/style.css
 }
 
 .workspacerow.preview {
-    min-width: 60px;
-    min-height: 80px;
+    min-width: 20px;
+    min-height: 30px;
     margin: 6px;
     padding: 6px;
 }

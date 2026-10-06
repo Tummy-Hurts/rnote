@@ -192,14 +192,14 @@ mod imp {
 
                     match position {
                         PositionType::Left => {
-                            layout_manager.set_orientation(Orientation::Vertical);
-                            self.setter_box.set_orientation(Orientation::Vertical);
-                            self.spinbutton.set_orientation(Orientation::Vertical);
+                            layout_manager.set_orientation(Orientation::Horizontal);
+                            self.setter_box.set_orientation(Orientation::Horizontal);
+                            self.spinbutton.set_orientation(Orientation::Horizontal);
                         }
                         PositionType::Right => {
-                            layout_manager.set_orientation(Orientation::Vertical);
-                            self.setter_box.set_orientation(Orientation::Vertical);
-                            self.spinbutton.set_orientation(Orientation::Vertical);
+                            layout_manager.set_orientation(Orientation::Horizontal);
+                            self.setter_box.set_orientation(Orientation::Horizontal);
+                            self.spinbutton.set_orientation(Orientation::Horizontal);
                         }
                         PositionType::Top => {
                             layout_manager.set_orientation(Orientation::Horizontal);

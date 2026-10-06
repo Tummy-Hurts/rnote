@@ -4,14 +4,14 @@
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
       </object>
     </property>
     <property name="hexpand">false</property>
     <property name="vexpand">false</property>
     <child>
       <object class="GtkBox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <child>
           <object class="GtkMenuButton" id="brushstyle_menubutton">
             <property name="direction">left</property>
@@ -27,8 +27,8 @@
         <child>
           <object class="GtkMenuButton" id="brushconfig_menubutton">
             <property name="icon-name">settings-symbolic</property>
-            <property name="hexpand">true</property>
-            <property name="halign">fill</property>
+            <!-- <property name="hexpand">true</property> -->
+            <!-- <property name="halign">fill</property> -->
             <property name="direction">left</property>
             <property name="tooltip_text" translatable="yes">Brush Configuration</property>
             <property name="popover">brushconfig_popover</property>
@@ -53,7 +53,7 @@
     <object class="GtkPopover" id="brushstyle_popover">
       <child>
         <object class="GtkBox">
-          <property name="orientation">vertical</property>
+          <property name="orientation">horizontal</property>
           <property name="margin-top">6</property>
           <property name="margin-bottom">6</property>
           <property name="margin-start">6</property>
@@ -84,7 +84,7 @@
           </child>
           <child>
             <object class="GtkListBox" id="brushstyle_listbox">
-              <property name="width-request">300</property>
+              <!-- <property name="width-request">300</property> -->
               <property name="selection-mode">browse</property>
               <style>
                 <class name="content" />
@@ -136,7 +136,7 @@
     <object class="GtkPopover" id="brushconfig_popover">
       <child>
         <object class="GtkBox">
-          <property name="orientation">vertical</property>
+          <property name="orientation">horizontal</property>
           <property name="margin-top">6</property>
           <property name="margin-bottom">6</property>
           <property name="margin-start">6</property>
@@ -176,7 +176,7 @@
           </child>
           <child>
             <object class="GtkListBox" id="brush_buildertype_listbox">
-              <property name="width-request">300</property>
+              <!-- <property name="width-request">300</property> -->
               <property name="selection-mode">browse</property>
               <style>
                 <class name="content" />

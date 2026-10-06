@@ -3,7 +3,7 @@
   <template class="RnStrokeWidthPicker" parent="GtkWidget">
     <property name="layout-manager">
       <object class="GtkBoxLayout">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="spacing">6</property>
       </object>
     </property>
@@ -18,7 +18,7 @@
       </object>
       <object class="GtkSpinButton" id="spinbutton">
         <property name="tooltip-text" translatable="yes">Edit Stroke Size</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="adjustment">adj</property>
         <property name="numeric">true</property>
         <property name="digits">1</property>
@@ -28,7 +28,7 @@
     </child>
     <child>
       <object class="GtkBox" id="setter_box">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="spacing">3</property>
         <child>
           <object class="RnStrokeWidthSetter" id="setter_1">

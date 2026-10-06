@@ -3,7 +3,7 @@
   <template class="RnColorPicker" parent="GtkWidget">
     <property name="layout-manager">
       <object class="GtkBoxLayout">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="spacing">6</property>
       </object>
     </property>
@@ -12,13 +12,13 @@
     </style>
     <child>
       <object class="GtkBox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkBox" id="active_colors_box">
-            <property name="orientation">vertical</property>
+            <property name="orientation">horizontal</property>
             <property name="spacing">3</property>
-            <property name="margin-top">6</property>
+            <!-- <property name="margin-top">6</property> -->
             <child>
               <object class="RnColorPad" id="stroke_color_pad">
                 <property name="icon_name">stroke-color-symbolic</property>
@@ -42,7 +42,7 @@
         </child>
         <child>
           <object class="GtkBox" id="setter_box">
-            <property name="orientation">vertical</property>
+            <property name="orientation">horizontal</property>
             <property name="spacing">6</property>
             <style>
               <class name="linked" />

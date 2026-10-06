@@ -4,14 +4,14 @@
     <property name="layout-manager">
       <object class="GtkBoxLayout">
         <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
       </object>
     </property>
     <property name="hexpand">false</property>
     <property name="vexpand">false</property>
     <child>
       <object class="GtkBox" id="selectorstyle_togglebox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="homogeneous">true</property>
         <property name="vexpand">false</property>
         <style>
@@ -53,7 +53,7 @@
     </child>
     <child>
       <object class="GtkBox" id="selection_actionbox">
-        <property name="orientation">vertical</property>
+        <property name="orientation">horizontal</property>
         <property name="spacing">6</property>
 
         <child>

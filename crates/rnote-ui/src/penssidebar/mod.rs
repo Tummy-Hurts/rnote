@@ -170,5 +170,6 @@ impl RnPensSideBar {
                     };
                 }
             ));
+        self.set_halign(gtk4::Align::Center);
     }
 }
