@@ -13,28 +13,20 @@ use serde::{Deserialize, Serialize};
 /// graphic:
 ///
 /// ```text
-///         tip
-///         /|\
-///        / | \
-///       /  |  \
-///    lline |  rline
-///          |
-///          |
-///          |
-///         start
+///             tip
+///             /|\
+///            / | \
+///           /  |  \
+///   lline_tip  |  rline_tip
+///              |
+/// lline_start  |  rline_start
+///           \  |  /
+///            \ | /
+///             \|/
+///             start
 /// ```
 ///
-/// Where `lline`, `tip`, `start` and `rline` represent a vector of the arrow.
-
-
-// /// Kind of arrow (implies/iff)
-// pub enum LogicArrowKind {
-//     #[serde(rename = "implies")]
-//     Implies,
-//
-//     #[serde(rename = "iff")]
-//     Iff,
-// }
+/// Where `lline_{tip,start}`, `tip`, `start` and `rline_{tip,start}` represent a vector of the arrow.
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 #[serde(default, rename = "logicarrow")]
@@ -44,19 +36,7 @@ pub struct LogicArrow {
 
     /// Tip of the arow.
     pub tip: Vector2,
-
-    // pub kind: LogicArrowKind
 }
-
-// impl Default for LogicArrow {
-//     fn default() -> Self {
-//         Self {
-//             start: Vector2::ZERO,
-//             tip: Vector2::ZERO,
-//             // kind: LogicArrowKind::Implies,
-//         }
-//     }
-// }
 
 impl Transformable for LogicArrow {
     fn translate(&mut self, offset: Vector2) {
@@ -103,13 +83,9 @@ impl LogicArrow {
     /// The angle for `rline` and `lline` to the stem of the arrow.
     const TIP_LINES_STEM_OBTUSE_ANGLE: f64 = (13.0 / 16.0) * std::f64::consts::PI;
 
-    /// The angle for `rline_start` and `lline_start` to the stem of the arrow.
-    const START_LINES_STEM_OBTUSE_ANGLE: f64 = std::f64::consts::PI - (13.0 / 16.0) * std::f64::consts::PI;
-
-    /// Offset for the two parallel lines
-    const PARALLEL_OFFSET: f64 = 3.0;
-
-    const LENGTH_OFFSET: f64 = 4.5;
+    /// sin(TIP_LINES_STEM_OBTUSE_ANGLE) and cos(TIP_LINES_STEM_OBTUSE_ANGLE)
+    const SIN_OBTUSE_ANGLE: f64 = 0.555570233;
+    const COS_OBTUSE_ANGLE: f64 = 0.8314696123;
 
     /// Creating a new arrow with the given start and tip vectors.
     pub fn new(start: Vector2, tip: Vector2) -> Self {
@@ -137,48 +113,43 @@ impl LogicArrow {
 
     /// Convert to kurbo shape.
     pub fn to_kurbo(&self, stroke_width: Option<f64>) -> kurbo::BezPath {
-        // let mut bez_path =
-        //     kurbo::Line::new(self.start.to_kurbo_point(), self.tip.to_kurbo_point()).to_path(0.25);
-        let start = (self.start).to_kurbo_point();
-        let tip = (self.tip).to_kurbo_point();
-        let lline = self.compute_lline(stroke_width).to_kurbo_point();
-        let rline = self.compute_rline(stroke_width).to_kurbo_point();
+        let start = self.start.to_kurbo_point();
+        let tip = self.tip.to_kurbo_point();
+        let lline_tip = self.compute_lline_tip(stroke_width).to_kurbo_point();
+        let rline_tip = self.compute_rline_tip(stroke_width).to_kurbo_point();
         let lline_start = self.compute_lline_start(stroke_width).to_kurbo_point();
         let rline_start = self.compute_rline_start(stroke_width).to_kurbo_point();
 
-        let dir = (self.tip - self.start).normalize();
-        let normal = (self.tip - self.start).normalize().perp();
-        // let start_l = (self.start - Self::PARALLEL_OFFSET * normal + DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point();
-        // let start_r = (self.start + Self::PARALLEL_OFFSET * normal + DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point();
-        // let tip_l = (self.tip - Self::PARALLEL_OFFSET * normal - DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point();
-        // let tip_r = (self.tip + Self::PARALLEL_OFFSET * normal - DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point();
+        let dir = self.compute_stem_direction_vector();
+        let normal = dir.perp();
+        let tip_lines_length = Self::compute_tip_lines_length(stroke_width);
 
-        let start_l = (self.start - Self::PARALLEL_OFFSET * normal + Self::LENGTH_OFFSET * dir).to_kurbo_point();
-        let start_r = (self.start + Self::PARALLEL_OFFSET * normal + Self::LENGTH_OFFSET * dir).to_kurbo_point();
-        let tip_l = (self.tip - Self::PARALLEL_OFFSET * normal - Self::LENGTH_OFFSET * dir).to_kurbo_point();
-        let tip_r = (self.tip + Self::PARALLEL_OFFSET * normal - Self::LENGTH_OFFSET * dir).to_kurbo_point();
+        let start_l = (self.start
+            + normal * (tip_lines_length * Self::SIN_OBTUSE_ANGLE) / 2.0
+            + dir * (tip_lines_length * Self::COS_OBTUSE_ANGLE / 2.0))
+            .to_kurbo_point();
+        let start_r = (self.start - normal * (tip_lines_length * Self::SIN_OBTUSE_ANGLE / 2.0)
+            + dir * (tip_lines_length * Self::COS_OBTUSE_ANGLE / 2.0))
+            .to_kurbo_point();
+        let tip_l = (self.tip + normal * (tip_lines_length * Self::SIN_OBTUSE_ANGLE / 2.0)
+            - dir * (tip_lines_length * Self::COS_OBTUSE_ANGLE / 2.0))
+            .to_kurbo_point();
+        let tip_r = (self.tip
+            - normal * (tip_lines_length * Self::SIN_OBTUSE_ANGLE / 2.0)
+            - dir * (tip_lines_length * Self::COS_OBTUSE_ANGLE / 2.0))
+            .to_kurbo_point();
 
-        // let _t = DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5);
-        // println!("cos * 5.5: {:?}", _t);
-
-        let mut bez_path =
-            // kurbo::Line::new((self.start - normal * Self::PARALLEL_OFFSET + DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point(), (self.tip - normal * Self::PARALLEL_OFFSET - DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir).to_kurbo_point()).to_path(0.25);
-            kurbo::Line::new(start_l, tip_l).to_path(0.25);
-        // println!("{:?}", DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE).cos() * (5.5) * dir);
-
+        let mut bez_path = kurbo::Line::new(start_l, tip_l).to_path(0.25);
+        bez_path.extend([PathEl::MoveTo(start_r), PathEl::LineTo(tip_r)]);
         bez_path.extend([
-            PathEl::MoveTo(lline),
+            PathEl::MoveTo(lline_tip),
             PathEl::LineTo(tip),
-            PathEl::LineTo(rline),
+            PathEl::LineTo(rline_tip),
         ]);
         bez_path.extend([
             PathEl::MoveTo(lline_start),
             PathEl::LineTo(start),
             PathEl::LineTo(rline_start),
-        ]);
-        bez_path.extend([
-            PathEl::MoveTo(start_r),
-            PathEl::LineTo(tip_r),
         ]);
 
         bez_path
@@ -187,23 +158,19 @@ impl LogicArrow {
     /// Compute the `lline` of the arrow tip.
     ///
     /// Optionally add the stroke width to adjust the length of the line.
-    pub fn compute_lline(&self, stroke_width: Option<f64>) -> Vector2 {
+    pub fn compute_lline_tip(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_a =
             self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
-        let v = DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE) * vec_a + self.tip;
-        // println!("lline angle: {:?}", v.to_angle());
-        v
+        DRot2::new(Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_a + self.tip
     }
 
     /// Compute the `rline` of the arrow tip.
     ///
     /// Optionally add the stroke width to adjust the length of the line.
-    pub fn compute_rline(&self, stroke_width: Option<f64>) -> Vector2 {
+    pub fn compute_rline_tip(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_b =
             self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
-        let v = DRot2::new(-Self::START_LINES_STEM_OBTUSE_ANGLE) * vec_b + self.tip;
-        // println!("rline angle: {:?}", v.to_angle());
-        v
+        DRot2::new(-Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_b + self.tip
     }
 
     /// Compute the `lline_start` of the arrow start.
@@ -211,10 +178,8 @@ impl LogicArrow {
     /// Optionally add the stroke width to adjust the length of the line.
     pub fn compute_lline_start(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_a =
-            self.compute_stem_direction_vector_inv() * Self::compute_tip_lines_length(stroke_width);
-        let v = DRot2::new(Self::START_LINES_STEM_OBTUSE_ANGLE) * vec_a + self.start;
-        // println!("lline_start angle: {:?}", v.to_angle());
-        v
+            -self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
+        DRot2::new(Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_a + self.start
     }
 
     /// Compute the `rline_start` of the arrow start.
@@ -222,34 +187,29 @@ impl LogicArrow {
     /// Optionally add the stroke width to adjust the length of the line.
     pub fn compute_rline_start(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_b =
-            self.compute_stem_direction_vector_inv() * Self::compute_tip_lines_length(stroke_width);
-        let v = DRot2::new(-Self::START_LINES_STEM_OBTUSE_ANGLE) * vec_b + self.start;
-        // println!("rline_start angle: {:?}", v.to_angle());
-        v
+            -self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
+        DRot2::new(-Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_b + self.start
     }
 
     /// Compute the bounds of the arrow in respect to the given stroke width.
     pub fn internal_compute_bounds(&self, stroke_width: Option<f64>) -> Aabb {
-        let lline = self.compute_lline(stroke_width);
-        let rline = self.compute_rline(stroke_width);
+        let lline_end = self.compute_lline_tip(stroke_width);
+        let rline_end = self.compute_rline_tip(stroke_width);
         let lline_start = self.compute_lline_start(stroke_width);
         let rline_start = self.compute_rline_start(stroke_width);
-        Aabb::from_points([lline, rline, self.start, self.tip, lline_start, rline_start])
+        Aabb::from_points([
+            lline_end,
+            rline_end,
+            self.start,
+            self.tip,
+            lline_start,
+            rline_start,
+        ])
     }
 
     /// Compute the normalized direction vector from `start` to `tip`.
     fn compute_stem_direction_vector(&self) -> Vector2 {
-        let direction_vector = self.start - self.tip; 
-        if direction_vector.length() == 0.0 {
-            Vector2::X
-        } else {
-            direction_vector / direction_vector.length()
-        }
-    }
-
-    /// Compute the normalized direction vector from `start` to `tip`.
-    fn compute_stem_direction_vector_inv(&self) -> Vector2 {
-        let direction_vector = self.tip - self.start; 
+        let direction_vector = self.tip - self.start;
         if direction_vector.length() == 0.0 {
             Vector2::X
         } else {
