@@ -694,9 +694,8 @@ fn shape_builder_type_icons_get_groups() -> Vec<GroupedIconPickerGroupData> {
         GroupedIconPickerGroupData {
             name: gettext("Math & Logic"),
             icons: StringList::new(&[
-                "shapebuilder-logicarrow-symbolic",
-                // "shapebuilder-implies",
-                // "shapebuilder-iff",
+                "shapebuilder-impliesarrow-symbolic",
+                "shapebuilder-iffarrow-symbolic",
             ]),
         },
     ]
@@ -720,6 +719,7 @@ fn shape_builder_type_icons_to_display_name(icon_name: &str) -> String {
         ShapeBuilderType::CubBez => gettext("Cubic bezier curve"),
         ShapeBuilderType::Polyline => gettext("Polyline"),
         ShapeBuilderType::Polygon => gettext("Polygon"),
-        ShapeBuilderType::LogicArrow => gettext("LogicArrow"),
+        ShapeBuilderType::ImpliesArrow => gettext("\\implies arrow"),
+        ShapeBuilderType::IffArrow => gettext("\\iff arrow"),
     }
 }

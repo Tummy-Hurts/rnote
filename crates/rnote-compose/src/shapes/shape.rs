@@ -1,6 +1,7 @@
 // Imports
 use super::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, LogicArrow,
+    Arrow, CubicBezier, Ellipse, IffArrow, ImpliesArrow, Line, Polygon, Polyline, QuadraticBezier,
+    Rectangle, Shapeable,
 };
 use crate::Transformable;
 use p2d::bounding_volume::Aabb;
@@ -35,9 +36,12 @@ pub enum Shape {
     /// A polygon shape.
     #[serde(rename = "polygon")]
     Polygon(Polygon),
-    /// A logicarrow.
-    #[serde(rename = "logicarrow")]
-    LogicArrow(LogicArrow),
+    /// An \implies arrow.
+    #[serde(rename = "impliesarrow")]
+    ImpliesArrow(ImpliesArrow),
+    /// An \iff arrow.
+    #[serde(rename = "iffarrow")]
+    IffArrow(IffArrow),
 }
 
 impl Default for Shape {
@@ -73,8 +77,11 @@ impl Transformable for Shape {
             Self::Polygon(polygon) => {
                 polygon.translate(offset);
             }
-            Self::LogicArrow(logicarrow) => {
-                logicarrow.translate(offset);
+            Self::ImpliesArrow(impliesarrow) => {
+                impliesarrow.translate(offset);
+            }
+            Self::IffArrow(iffarrow) => {
+                iffarrow.translate(offset);
             }
         }
     }
@@ -105,8 +112,11 @@ impl Transformable for Shape {
             Self::Polygon(polygon) => {
                 polygon.rotate(angle, center);
             }
-            Self::LogicArrow(logicarrow) => {
-                logicarrow.rotate(angle, center);
+            Self::ImpliesArrow(impliesarrow) => {
+                impliesarrow.rotate(angle, center);
+            }
+            Self::IffArrow(iffarrow) => {
+                iffarrow.rotate(angle, center);
             }
         }
     }
@@ -137,8 +147,11 @@ impl Transformable for Shape {
             Self::Polygon(polygon) => {
                 polygon.scale(scale);
             }
-            Self::LogicArrow(logicarrow) => {
-                logicarrow.scale(scale);
+            Self::ImpliesArrow(impliesarrow) => {
+                impliesarrow.scale(scale);
+            }
+            Self::IffArrow(iffarrow) => {
+                iffarrow.scale(scale);
             }
         }
     }
@@ -155,7 +168,8 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.bounds(),
             Self::Polyline(polyline) => polyline.bounds(),
             Self::Polygon(polygon) => polygon.bounds(),
-            Self::LogicArrow(logicarrow) => logicarrow.bounds(),
+            Self::ImpliesArrow(impliesarrow) => impliesarrow.bounds(),
+            Self::IffArrow(iffarrow) => iffarrow.bounds(),
         }
     }
 
@@ -169,7 +183,8 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.hitboxes(),
             Self::Polyline(polyline) => polyline.hitboxes(),
             Self::Polygon(polygon) => polygon.hitboxes(),
-            Self::LogicArrow(logicarrow) => logicarrow.hitboxes(),
+            Self::ImpliesArrow(impliesarrow) => impliesarrow.hitboxes(),
+            Self::IffArrow(iffarrow) => iffarrow.hitboxes(),
         }
     }
 
@@ -183,7 +198,8 @@ impl Shapeable for Shape {
             Self::CubicBezier(cubbez) => cubbez.outline_path(),
             Self::Polyline(polyline) => polyline.outline_path(),
             Self::Polygon(polygon) => polygon.outline_path(),
-            Self::LogicArrow(logicarrow) => logicarrow.outline_path(),
+            Self::ImpliesArrow(impliesarrow) => impliesarrow.outline_path(),
+            Self::IffArrow(iffarrow) => iffarrow.outline_path(),
         }
     }
 }
