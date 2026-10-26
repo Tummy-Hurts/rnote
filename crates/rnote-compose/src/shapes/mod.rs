@@ -19,8 +19,10 @@ pub mod rectangle;
 pub mod shape;
 /// Shapeable
 pub mod shapeable;
-/// Arrow
-pub mod logicarrow;
+/// ImpliesArrow
+pub mod impliesarrow;
+/// IffArrow
+pub mod iffarrow;
 
 // Re-exports
 pub use arrow::Arrow;
@@ -33,7 +35,8 @@ pub use quadbez::QuadraticBezier;
 pub use rectangle::Rectangle;
 pub use shape::Shape;
 pub use shapeable::Shapeable;
-pub use logicarrow::LogicArrow;
+pub use impliesarrow::ImpliesArrow;
+pub use iffarrow::IffArrow;
 
 /// Calculate the number hitbox elems for the given length ( e.g. length of a line, curve, etc.).
 fn hitbox_elems_for_shape_len(len: f64) -> i32 {
