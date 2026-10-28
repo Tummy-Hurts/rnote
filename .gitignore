@@ -1,0 +1,12 @@
+/tmp
+/target
+/_flatpak_repo
+/_flatpak_app
+/_mesonbuild
+/.flatpak-builder
+/.editorconfig
+/*.code-workspace
+/.idea/
+*.mo
+.toggletasks.json
+*.flatpak
