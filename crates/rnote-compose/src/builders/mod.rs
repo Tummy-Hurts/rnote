@@ -1,7 +1,5 @@
 // Modules
 mod arrowbuilder;
-mod impliesarrowbuilder;
-mod iffarrowbuilder;
 /// Buildable trait.
 pub mod buildable;
 mod coordsystem2dbuilder;
@@ -10,6 +8,8 @@ mod cubbezbuilder;
 mod ellipsebuilder;
 mod fociellipsebuilder;
 mod gridbuilder;
+mod iffarrowbuilder;
+mod impliesarrowbuilder;
 mod linebuilder;
 mod penpathcurvedbuilder;
 mod penpathmodeledbuilder;
@@ -22,14 +22,14 @@ mod rectanglebuilder;
 
 // Re-exports
 pub use arrowbuilder::ArrowBuilder;
-pub use impliesarrowbuilder::ImpliesArrowBuilder;
-pub use iffarrowbuilder::IffArrowBuilder;
 pub use coordsystem2dbuilder::CoordSystem2DBuilder;
 pub use coordsystem3dbuilder::CoordSystem3DBuilder;
 pub use cubbezbuilder::CubBezBuilder;
 pub use ellipsebuilder::EllipseBuilder;
 pub use fociellipsebuilder::FociEllipseBuilder;
 pub use gridbuilder::GridBuilder;
+pub use iffarrowbuilder::IffArrowBuilder;
+pub use impliesarrowbuilder::ImpliesArrowBuilder;
 pub use linebuilder::LineBuilder;
 pub use penpathcurvedbuilder::PenPathCurvedBuilder;
 pub use penpathmodeledbuilder::PenPathModeledBuilder;

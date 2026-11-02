@@ -10,7 +10,8 @@ use crate::PenPath;
 use crate::ext::Vector2Ext;
 use crate::penpath::{self, Segment};
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, ImpliesArrow, IffArrow
+    Arrow, CubicBezier, Ellipse, IffArrow, ImpliesArrow, Line, Polygon, Polyline, QuadraticBezier,
+    Rectangle, Shapeable,
 };
 use kurbo::Shape;
 use p2d::bounding_volume::{Aabb, BoundingVolume};

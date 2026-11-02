@@ -10,7 +10,8 @@ use super::Composer;
 use crate::Color;
 use crate::ext::{DAffine2Ext, Vector2Ext};
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, Shapeable, ImpliesArrow, IffArrow
+    Arrow, CubicBezier, Ellipse, IffArrow, ImpliesArrow, Line, Polygon, Polyline, QuadraticBezier,
+    Rectangle, Shapeable,
 };
 use p2d::bounding_volume::{Aabb, BoundingVolume};
 use roughr::Point2D;

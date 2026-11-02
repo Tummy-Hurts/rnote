@@ -193,13 +193,13 @@ impl IffArrow {
 
     /// Compute the bounds of the arrow in respect to the given stroke width.
     pub fn internal_compute_bounds(&self, stroke_width: Option<f64>) -> Aabb {
-        let lline_end = self.compute_lline_tip(stroke_width);
-        let rline_end = self.compute_rline_tip(stroke_width);
+        let lline_tip = self.compute_lline_tip(stroke_width);
+        let rline_tip = self.compute_rline_tip(stroke_width);
         let lline_start = self.compute_lline_start(stroke_width);
         let rline_start = self.compute_rline_start(stroke_width);
         Aabb::from_points([
-            lline_end,
-            rline_end,
+            lline_tip,
+            rline_tip,
             self.start,
             self.tip,
             lline_start,

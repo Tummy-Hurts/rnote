@@ -9,7 +9,10 @@ use p2d::bounding_volume::Aabb;
 use piet::RenderContext;
 use rnote_compose::Shape;
 use rnote_compose::builders::buildable::{Buildable, BuilderCreator, BuilderProgress};
-use rnote_compose::builders::{ArrowBuilder, GridBuilder, PolygonBuilder, PolylineBuilder, ImpliesArrowBuilder, IffArrowBuilder};
+use rnote_compose::builders::{
+    ArrowBuilder, GridBuilder, IffArrowBuilder, ImpliesArrowBuilder, PolygonBuilder,
+    PolylineBuilder,
+};
 use rnote_compose::builders::{
     CoordSystem2DBuilder, CoordSystem3DBuilder, CubBezBuilder, EllipseBuilder, FociEllipseBuilder,
     LineBuilder, QuadBezBuilder, QuadrantCoordSystem2DBuilder, RectangleBuilder, ShapeBuilderType,

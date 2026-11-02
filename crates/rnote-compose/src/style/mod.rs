@@ -17,7 +17,8 @@ use self::textured::TexturedOptions;
 
 // Imports
 use crate::shapes::{
-    Arrow, CubicBezier, Ellipse, Line, Polygon, Polyline, QuadraticBezier, Rectangle, ImpliesArrow, IffArrow
+    Arrow, CubicBezier, Ellipse, IffArrow, ImpliesArrow, Line, Polygon, Polyline, QuadraticBezier,
+    Rectangle,
 };
 use crate::{Color, PenPath, Shape};
 use anyhow::Context;
