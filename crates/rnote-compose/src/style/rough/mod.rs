@@ -129,12 +129,12 @@ impl Composer<RoughOptions> for ImpliesArrow {
         let tip = {
             let lline = {
                 let lline = self
-                    .compute_lline_tip(Some(options.stroke_width))
+                    .compute_lline(Some(options.stroke_width))
                     .to_kurbo_point();
                 Point2D::new(lline.x, lline.y)
             };
             let rline = {
-                let rline = self.compute_rline_tip(Some(options.stroke_width));
+                let rline = self.compute_rline(Some(options.stroke_width));
                 Point2D::new(rline.x, rline.y)
             };
             let tip = {

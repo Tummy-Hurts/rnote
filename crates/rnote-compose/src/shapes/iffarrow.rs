@@ -9,7 +9,7 @@ use p2d::glamx::prelude::{DPose2, DRot2};
 use p2d::math::Vector2;
 use serde::{Deserialize, Serialize};
 
-/// All doc-comments of this file and [ArrowBuilder][crate::builders] rely on the following
+/// All doc-comments of this file and [IffArrowBuilder][crate::builders] rely on the following
 /// graphic:
 ///
 /// ```text

@@ -9,7 +9,7 @@ use p2d::glamx::prelude::{DPose2, DRot2};
 use p2d::math::Vector2;
 use serde::{Deserialize, Serialize};
 
-/// All doc-comments of this file and [ArrowBuilder][crate::builders] rely on the following
+/// All doc-comments of this file and [ImpliesArrowBuilder][crate::builders] rely on the following
 /// graphic:
 ///
 /// ```text
@@ -24,7 +24,7 @@ use serde::{Deserialize, Serialize};
 ///         start
 /// ```
 ///
-/// Where `lline_{tip,start}`, `tip`, `start` and `rline_{tip,start}` represent a vector of the arrow.
+/// Where `lline`, `tip`, `start` and `rline` represent a vector of the arrow.
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 #[serde(default, rename = "impliesarrow")]
@@ -112,8 +112,8 @@ impl ImpliesArrow {
     /// Convert to kurbo shape.
     pub fn to_kurbo(&self, stroke_width: Option<f64>) -> kurbo::BezPath {
         let tip = self.tip.to_kurbo_point();
-        let lline_tip = self.compute_lline_tip(stroke_width).to_kurbo_point();
-        let rline_tip = self.compute_rline_tip(stroke_width).to_kurbo_point();
+        let lline = self.compute_lline(stroke_width).to_kurbo_point();
+        let rline = self.compute_rline(stroke_width).to_kurbo_point();
 
         let dir = self.compute_stem_direction_vector();
         let normal = dir.perp();
@@ -137,9 +137,9 @@ impl ImpliesArrow {
         let mut bez_path = kurbo::Line::new(start_l, tip_l).to_path(0.25);
         bez_path.extend([PathEl::MoveTo(start_r), PathEl::LineTo(tip_r)]);
         bez_path.extend([
-            PathEl::MoveTo(lline_tip),
+            PathEl::MoveTo(lline),
             PathEl::LineTo(tip),
-            PathEl::LineTo(rline_tip),
+            PathEl::LineTo(rline),
         ]);
 
         bez_path
@@ -148,7 +148,7 @@ impl ImpliesArrow {
     /// Compute the `lline` of the arrow tip.
     ///
     /// Optionally add the stroke width to adjust the length of the line.
-    pub fn compute_lline_tip(&self, stroke_width: Option<f64>) -> Vector2 {
+    pub fn compute_lline(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_a =
             self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
         DRot2::new(Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_a + self.tip
@@ -157,7 +157,7 @@ impl ImpliesArrow {
     /// Compute the `rline` of the arrow tip.
     ///
     /// Optionally add the stroke width to adjust the length of the line.
-    pub fn compute_rline_tip(&self, stroke_width: Option<f64>) -> Vector2 {
+    pub fn compute_rline(&self, stroke_width: Option<f64>) -> Vector2 {
         let vec_b =
             self.compute_stem_direction_vector() * Self::compute_tip_lines_length(stroke_width);
         DRot2::new(-Self::TIP_LINES_STEM_OBTUSE_ANGLE) * vec_b + self.tip
@@ -165,8 +165,8 @@ impl ImpliesArrow {
 
     /// Compute the bounds of the arrow in respect to the given stroke width.
     pub fn internal_compute_bounds(&self, stroke_width: Option<f64>) -> Aabb {
-        let lline_tip = self.compute_lline_tip(stroke_width);
-        let rline_tip = self.compute_rline_tip(stroke_width);
+        let lline_tip = self.compute_lline(stroke_width);
+        let rline_tip = self.compute_rline(stroke_width);
         Aabb::from_points([lline_tip, rline_tip, self.start, self.tip])
     }
 
